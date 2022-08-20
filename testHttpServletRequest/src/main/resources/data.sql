@@ -1,0 +1,6 @@
+INSERT INTO person (person_id, person_name) VALUE (1, 'P1')
+INSERT INTO person (person_id, person_name) VALUE (2, 'P2')
+INSERT INTO cars (car_id, car_name, person_person_id) value (1, 'c1', 1)
+INSERT INTO cars (car_id, car_name, person_person_id) value (2, 'c2', 1)
+INSERT INTO cars (car_id, car_name, person_person_id) value (3, 'c3', 2)
+INSERT INTO cars (car_id, car_name, person_person_id) value (4, 'c4', 2)

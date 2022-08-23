@@ -4,12 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @Entity
 @Data
 @NamedNativeQuery(
-    name = "Employee.findAllResultSetMapping",
+    name = "Employee.findAllResultSetMapping", //entityName.methodName in Repo
     query = "select  * from employee",
     resultSetMapping = "resultSetMappingEmployee")
 @SqlResultSetMapping(
@@ -24,7 +22,7 @@ import java.time.LocalDateTime;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employeeSequenceForEmployee")
-    @SequenceGenerator(name = "employeeSequenceForEmployee", sequenceName = "hibernate_sequence")
+    @SequenceGenerator(name = "employeeSequenceForEmployee", sequenceName = "hibernate_sequence") // if hibernate_sequence1 not exist => create new sequence
     private Long id;
     private String eName;
     private LocalDate DoB;

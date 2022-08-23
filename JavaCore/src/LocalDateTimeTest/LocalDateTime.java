@@ -1,4 +1,9 @@
+package LocalDateTimeTest;
+
 import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 
 public class LocalDateTime {
@@ -11,8 +16,12 @@ public class LocalDateTime {
       LocalTime t1 = LocalTime.of(12,35,10);
       Set<String> zoneID = ZoneId.getAvailableZoneIds();
 
-//      LocalTime t3 = LocalTime.now(Zon)
-
-
+//    Iterator<String> iterator = zoneID.iterator();
+//    while (iterator.hasNext()){
+//      System.out.println(iterator.next());
+//    }
+      LocalTime t3 = LocalTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddYYMM");
+    System.out.println(localDate1.format(dtf));
   }
 }

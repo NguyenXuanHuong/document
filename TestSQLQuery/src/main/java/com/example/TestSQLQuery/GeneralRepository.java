@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface GeneralRepository extends JpaRepository<GeneralEntity, String> {
 
-    @Query(value = "select * from employee_name", nativeQuery = true)
-    List<Employee> getAllEmployee();
+    @Query(value = "select e_name from employee_name", nativeQuery = true)
+    List<InterfaceMappingDtos> getAllEmployeeView();
+
+    @Query(value = "select e_name from employee", nativeQuery = true)
+    List<InterfaceMappingDtos> getEmployeeEntity();
+
 
 }

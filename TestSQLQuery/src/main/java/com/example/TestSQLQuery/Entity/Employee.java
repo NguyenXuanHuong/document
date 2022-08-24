@@ -21,7 +21,7 @@ import java.time.LocalDate;
                 @ConstructorResult(
                         targetClass = ResultSetDto.class,
                         columns = {
-                                @ColumnResult(name = "e_name", type = String.class),
+                                @ColumnResult(name = "e_name", type = String.class), // name of column in table
                                 @ColumnResult(name = "dob", type = LocalDate.class)
                         })),
 
@@ -33,7 +33,7 @@ import java.time.LocalDate;
                 @ConstructorResult(
                         targetClass = ResultSetDto.class,
                         columns = {
-                                @ColumnResult(name = "ename", type = String.class),
+                                @ColumnResult(name = "ename", type = String.class), // name of as XXX in select sql
                                 @ColumnResult(name = "dob", type = LocalDate.class)
                         }))
 

@@ -1,6 +1,9 @@
 package com.example.TestSQLQuery.MappingObject;
 
+import java.time.LocalDate;
+
 public interface InterfaceMappingDtos {
 
-    public String gete_name();
+    String gete_name();
+    LocalDate gete_dob();
 }

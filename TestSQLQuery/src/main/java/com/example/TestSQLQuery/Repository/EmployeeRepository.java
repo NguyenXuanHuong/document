@@ -14,7 +14,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> , Nati
     @Query(value = "select * from employee", nativeQuery = true)
     List<Employee> getAllEmployee();
 
-    @Query(value = "select e_name from employee", nativeQuery = true)
+    @Query(value = "select e_name,  dob as e_dob from employee", nativeQuery = true)
     List<InterfaceMappingDtos> getAllEmployeeInterfaceMapping();
 
     @Query(nativeQuery = true)

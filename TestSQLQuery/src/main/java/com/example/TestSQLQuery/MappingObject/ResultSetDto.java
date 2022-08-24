@@ -1,4 +1,4 @@
-package com.example.TestSQLQuery;
+package com.example.TestSQLQuery.MappingObject;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

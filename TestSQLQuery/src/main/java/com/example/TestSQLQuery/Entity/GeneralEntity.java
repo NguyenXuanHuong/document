@@ -1,4 +1,4 @@
-package com.example.TestSQLQuery;
+package com.example.TestSQLQuery.Entity;
 
 import org.hibernate.annotations.NaturalId;
 

@@ -20,9 +20,9 @@ public class TransactionalTest {
     EntityManager em;
     @Test
     void test(){
-        Employee employee = em.find(Employee.class, 1l);
-        Long iD = employee.getId();
-        employeeRepository.getAllEmailNativeEm();
+//        Employee employee = em.find(Employee.class, 1l);
+//        Long iD = employee.getId();
+//        employeeRepository.getAllEmailNativeEm();
     }
 
 }

@@ -10,10 +10,9 @@ import java.time.LocalDate;
 @Entity
 
 //cannot use with jpql
-//@NamedQuery(
-//        name = "GeneralEntity.jpqlTest", //entityName.methodName in Repo
-//        query = "select e.eName as EName2, e.eName as EName1, e.DoB as Dob from Employee as e where e.eName = :ename",
-//        resultSetMapping = "jpqlTest")
+@NamedQuery(
+        name = "GeneralEntity.jpqlTest", //entityName.methodName in Repo
+        query = "select e.eName as EName2, e.eName as EName1, e.DoB as Dob from Employee as e where e.eName = :ename")
 
 @SqlResultSetMappings({
 

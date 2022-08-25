@@ -48,4 +48,6 @@ public class Employee {
     private String eName;
     private LocalDate DoB;
 
+    private String another;
+
 }

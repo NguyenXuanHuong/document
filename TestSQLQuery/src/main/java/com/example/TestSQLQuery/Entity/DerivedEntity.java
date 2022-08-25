@@ -14,8 +14,9 @@ public class DerivedEntity {
     @SequenceGenerator(name = "sequenceForDeriveEntity", sequenceName = "sequenceForDeriveEntity")
     private Long id;
     private String derivedEntityName;
-    private LocalDate derivedEntityDob;
-    private Long LongAttr;
-    private String StringAttr;
+    private LocalDate dob;
+    private Long longAttr;
+    private String stringAttr;
+    private Boolean booleanAttr;
 
 }

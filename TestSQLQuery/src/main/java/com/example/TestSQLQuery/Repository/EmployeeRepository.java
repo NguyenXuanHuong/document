@@ -22,9 +22,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> , Nati
     @Query(nativeQuery = true)
     List<ResultSetDto> namedNativeQueryResultMapping(); // use this method name in resultSetMapping
 
-    Page<Employee> findByeName(String ename, Pageable pageable);
+
 
     Employee findByeName(String ename);
+
+    Employee findByAnother(String another);
 
 
 }

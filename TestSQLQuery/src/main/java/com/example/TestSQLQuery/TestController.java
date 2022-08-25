@@ -6,10 +6,7 @@ import com.example.TestSQLQuery.MappingObject.InterfaceMappingDtos;
 import com.example.TestSQLQuery.MappingObject.InterfaceMappingJPQL;
 import com.example.TestSQLQuery.MappingObject.JpqlMappingDto;
 import com.example.TestSQLQuery.MappingObject.ResultSetDto;
-import com.example.TestSQLQuery.Repository.EmployeeRepository;
-import com.example.TestSQLQuery.Repository.GeneralRepository;
-import com.example.TestSQLQuery.Repository.JpqlRepository;
-import com.example.TestSQLQuery.Repository.SpecificationRepository;
+import com.example.TestSQLQuery.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -142,9 +139,19 @@ public class TestController {
     specificationRepository.findAll(specification.and(andSpec));
   }
 
+  @Autowired
+  PagingRepositoryJpa pagingRepositoryJpa;
   @GetMapping("/paging-jpa")
   Page<Employee> testPagingJpa() {
-    employeeRepository.findByeName("e1");
-    return employeeRepository.findByeName("e1", PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.DESC, Employee_.E_NAME))));
+    return pagingRepositoryJpa.findByeName("e1", PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.DESC, Employee_.E_NAME))));
+  }
+  @Autowired
+  DerivedQueryRepository derivedQueryRepository;
+  @GetMapping("/derived-query")
+  void testDerivedQuery(){
+    derivedQueryRepository.findByderivedEntityName("d1");
+    derivedQueryRepository.findByderivedEntityName("d1");
+    derivedQueryRepository.findByStringAttr("a");
+    derivedQueryRepository.findByLongAttrLessThan(1l);
   }
 }

@@ -10,5 +10,6 @@ public interface CQRepositoryCustom {
     void join();
     void param();
     void aggregationFunc();
-
+    void groupByHavingOrderBy();
+    void subQuery();
 }

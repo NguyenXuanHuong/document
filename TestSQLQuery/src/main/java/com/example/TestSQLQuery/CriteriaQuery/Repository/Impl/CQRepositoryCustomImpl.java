@@ -15,6 +15,7 @@ import javax.persistence.Query;
 import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 
 public class CQRepositoryCustomImpl implements CQRepositoryCustom {
@@ -228,6 +229,61 @@ public class CQRepositoryCustomImpl implements CQRepositoryCustom {
     //
     Query query = entityManager.createQuery(cq);
     AggregationResultDto countResult= (AggregationResultDto) query.getSingleResult();
+
+  }
+
+  @Override
+  public void groupByHavingOrderBy() {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<AggregationResultDto> cq =
+            cb.createQuery(AggregationResultDto.class);
+    Root<Employee> emRoot = cq.from(Employee.class);
+    //
+    Path<Long> pathId = emRoot.get(Employee_.ID);
+    // aggregation
+    Expression<Long> countDistinctExpress = cb.countDistinct(pathId);
+    Expression<Long> countExpress = cb.count(pathId);
+    Expression<Long> sumIdExpress = cb.sum(pathId);
+    Expression<Double> avgExpress = cb.avg(pathId);
+    Expression<Long> maxExpress = cb.max(pathId);
+    //
+    cq.select(
+            cb.construct(
+                    AggregationResultDto.class,
+                    countDistinctExpress,
+                    countExpress,
+                    sumIdExpress,
+                    maxExpress, avgExpress));
+    Path<LocalDate> localDatePath = emRoot.get(Employee_.DO_B);
+    Predicate datePredicate = cb.greaterThanOrEqualTo(localDatePath, LocalDate.of(2022, Month.AUGUST, 10));
+    cq.groupBy(localDatePath);
+    cq.having(datePredicate);
+    Path<String> pathEname = emRoot.get(Employee_.E_NAME);
+    Order order = cb.asc(pathEname);
+    cq.orderBy(order);
+
+            //
+    Query query = entityManager.createQuery(cq);
+    List<AggregationResultDto> list = query.getResultList();
+  }
+
+  @Override
+  public void subQuery() {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+    Root<Employee> emRoot = cq.from(Employee.class);
+    //subquery
+    Subquery<Long> subquery = cq.subquery(Long.class);
+    Root<EmployeeOneToMany> subRoot = subquery.from(EmployeeOneToMany.class);
+    Path<Long> idForRefPath = subRoot.get(EmployeeOneToMany_.ID_FOR_REF);
+    subquery.select(idForRefPath);
+    // predicate
+    Path<Long> idEmployeePath = emRoot.get(Employee_.ID);
+    Predicate idInPredicate = cb.in(idEmployeePath).value(subquery);
+    cq.where(idInPredicate);
+    //
+    Query query = entityManager.createQuery(cq);
+    List<Employee> list = query.getResultList();
 
   }
 }

@@ -187,7 +187,7 @@ public class TestController {
   CascadeTestRepository cascadeTestRepository;
   @GetMapping("/cascade")
   void testCascade(){
-    cascadeTestRepository.deleteById(4L);
+//    cascadeTestRepository.deleteById(4L);
     Employee employee = new Employee();
     EmployeeOneToMany employeeOneToMany = new EmployeeOneToMany();
     employee.setEmployeeOneToMany(employeeOneToMany);

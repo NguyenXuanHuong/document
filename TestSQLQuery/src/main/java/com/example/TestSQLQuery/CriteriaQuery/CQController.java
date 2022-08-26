@@ -22,5 +22,7 @@ public class CQController {
         cqRepository.join();
         cqRepository.param();
         cqRepository.aggregationFunc();
+        cqRepository.groupByHavingOrderBy();
+        cqRepository.subQuery();
     }
 }

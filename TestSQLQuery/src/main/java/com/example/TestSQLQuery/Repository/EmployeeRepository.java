@@ -28,5 +28,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> , Nati
 
     Employee findByAnother(String another);
 
-
+//    Employee findByIdForRef(Long idForRef); // cannot used for join column
 }

@@ -1,5 +1,6 @@
 package com.example.TestSQLQuery.Entity;
 
+import com.example.TestSQLQuery.Entity.EmployeeOneToMany_;
 import com.example.TestSQLQuery.MappingObject.ResultSetDto;
 import lombok.Data;
 
@@ -50,4 +51,10 @@ public class Employee {
 
     private String another;
 
+  @ManyToOne(cascade = CascadeType.PERSIST) // SHOULD NOT USE ALL HERE
+  @JoinColumn(
+      name = "employee_one_to_many_id_name",
+      referencedColumnName = EmployeeOneToMany_.ID_FOR_REF
+      ) // which column in referenced table
+  private EmployeeOneToMany employeeOneToMany;
 }

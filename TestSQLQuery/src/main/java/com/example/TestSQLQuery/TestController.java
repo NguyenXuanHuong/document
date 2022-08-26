@@ -1,9 +1,10 @@
 package com.example.TestSQLQuery;
 
+import com.example.TestSQLQuery.TestCascade.CascadeTestRepository;
 import com.example.TestSQLQuery.Entity.Employee;
+import com.example.TestSQLQuery.Entity.EmployeeOneToMany;
 import com.example.TestSQLQuery.Entity.Employee_;
 import com.example.TestSQLQuery.MappingObject.InterfaceMappingDtos;
-import com.example.TestSQLQuery.MappingObject.InterfaceMappingJPQL;
 import com.example.TestSQLQuery.MappingObject.JpqlMappingDto;
 import com.example.TestSQLQuery.MappingObject.ResultSetDto;
 import com.example.TestSQLQuery.Repository.*;
@@ -15,11 +16,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.swing.*;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -106,19 +105,6 @@ public class TestController {
     List<ResultSetDto> resultSetDtos = employeeRepository.getAllEmailNativeEm();
   }
 
-  @GetMapping("/native-query-pagable")
-  Page<ResultSetDto> nativeQueryPagable(
-      @PageableDefault(page = 0, size = 3)
-          @SortDefault.SortDefaults({@SortDefault(sort = "ename", direction = Sort.Direction.DESC)})
-          Pageable pageable) {
-    Sort.Order orderEname = new Sort.Order(Sort.Direction.ASC, Employee_.E_NAME);
-    Sort.Order orderDob = new Sort.Order(Sort.Direction.DESC, Employee_.DO_B);
-    List<Sort.Order> orders = new ArrayList<>(List.of(orderEname, orderDob));
-    Sort sort = Sort.by(orders);
-    Pageable pageable1 = PageRequest.of(0, 10, sort);
-    return employeeRepository.pagingTest(pageable1);
-  }
-
   @GetMapping("/jpql")
   void testJpql() {
     JpqlMappingDto jpqlMappingDto = jpqlRepository.jpqlTest("e1");
@@ -139,19 +125,72 @@ public class TestController {
     specificationRepository.findAll(specification.and(andSpec));
   }
 
-  @Autowired
-  PagingRepositoryJpa pagingRepositoryJpa;
+  @Autowired PagingRepositoryJpa pagingRepositoryJpa;
+
   @GetMapping("/paging-jpa")
   Page<Employee> testPagingJpa() {
-    return pagingRepositoryJpa.findByeName("e1", PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.DESC, Employee_.E_NAME))));
+
+//    Sort eNameSort = Sort.by(new Sort.Order());
+//    Sort dobSort = Sort.by(new Sort.Order());
+//    List<Sort> sortList = new ArrayList<>(List.of(eNameSort, dobSort));
+
+
+    Sort.Order enameOrder = new Sort.Order(Sort.Direction.DESC, Employee_.E_NAME);
+    Sort.Order dobOrder = new Sort.Order(Sort.Direction.ASC, Employee_.DO_B);
+    List<Sort.Order> listOrders = new ArrayList<>(List.of(enameOrder, dobOrder));
+    Sort sortMultipleOrder = Sort.by(listOrders);
+    Pageable pageableMultipleSort = PageRequest.of(0, 10, sortMultipleOrder);
+    Pageable pageableMultiSort = PageRequest.of(0, 10, sortMultipleOrder);
+
+
+    return pagingRepositoryJpa.findByeName(
+        "e1", PageRequest.of(0, 10, Sort.by(new Sort.Order(Sort.Direction.DESC, Employee_.E_NAME))));
   }
-  @Autowired
-  DerivedQueryRepository derivedQueryRepository;
+
+  @GetMapping("/native-query-pagable")
+  Page<ResultSetDto> nativeQueryPagable(
+      @PageableDefault(page = 0, size = 3)
+          @SortDefault.SortDefaults({@SortDefault(sort = "ename", direction = Sort.Direction.DESC)})
+          Pageable pageable) {
+    Sort.Order orderEname = new Sort.Order(Sort.Direction.ASC, Employee_.E_NAME);
+    Sort.Order orderDob = new Sort.Order(Sort.Direction.DESC, Employee_.DO_B);
+    List<Sort.Order> orders = new ArrayList<>(List.of(orderEname, orderDob));
+    Sort sort = Sort.by(orders);
+    Pageable pageable1 = PageRequest.of(0, 10, sort);
+    return employeeRepository.pagingTest(pageable1);
+  }
+
+  @Autowired DerivedQueryRepository derivedQueryRepository;
+
   @GetMapping("/derived-query")
-  void testDerivedQuery(){
+  void testDerivedQuery() {
     derivedQueryRepository.findByderivedEntityName("d1");
     derivedQueryRepository.findByderivedEntityName("d1");
     derivedQueryRepository.findByStringAttr("a");
     derivedQueryRepository.findByLongAttrLessThan(1l);
+  }
+
+  @GetMapping("/join")
+  void testJoin(){
+
+    Employee employee = employeeRepository.findById(1L).get();
+    EmployeeOneToMany employeeOneToMany = employee.getEmployeeOneToMany();
+    String str = employeeOneToMany.getName();
+
+//    Specification<Employee> specification = (root, query, builder) => {
+//      Join
+//    }
+
+  }
+
+  @Autowired
+  CascadeTestRepository cascadeTestRepository;
+  @GetMapping("/cascade")
+  void testCascade(){
+    cascadeTestRepository.deleteById(4L);
+    Employee employee = new Employee();
+    EmployeeOneToMany employeeOneToMany = new EmployeeOneToMany();
+    employee.setEmployeeOneToMany(employeeOneToMany);
+    cascadeTestRepository.save(employee);
   }
 }

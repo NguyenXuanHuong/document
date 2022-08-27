@@ -17,7 +17,7 @@ public class ConditionalExpression {
         model.addAttribute("person1", tina1);
         model.addAttribute("person2", tina2);
 
-        model.addAttribute("gender", "M");
+        model.addAttribute("gender", "F");
         return "conditionalExpression";
     }
 }

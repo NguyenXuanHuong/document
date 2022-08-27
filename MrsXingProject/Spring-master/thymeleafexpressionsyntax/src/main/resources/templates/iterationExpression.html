@@ -38,8 +38,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="p, iter : ${people}">
-            <th scope="row" th:text="${iter.index + 1}">1</th>
+        <tr th:each="p, iter1 : ${people}">
+            <th scope="row" th:text="${iter1.index + 1}">1</th>
             <td th:text="${p.id}">1</td>
             <td th:text="${p.name}">Otto</td>
         </tr>

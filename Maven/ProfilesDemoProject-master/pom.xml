@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.kkjavatutorials</groupId>
+  <artifactId>ProfilesDemoProject</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <build>
+<!--	  this is for document nothing related to profile, skip it-->
+  	<resources>
+  		<resource>
+  			<directory>src/main/resources/</directory>
+  			<filtering>true</filtering>
+  		</resource>
+  	</resources>
+  </build>
+  
+  
+  <!--  Profiles for different environments -->
+  <profiles>
+  
+  <!-- dev environment profile -->
+  	<profile>
+  		<id>dev</id>
+  		<build>
+  			<finalName>${project.artifactId}-dev</finalName>
+  			<filters>
+  				<filter>src/main/resources/dev.properties</filter>
+  			</filters>
+  		</build>
+  	</profile>
+  	
+  	 <!-- qa environment profile -->
+  	<profile>
+  		<id>qa</id>
+  		<build>
+  			<finalName>${project.artifactId}-qa</finalName>
+  			<filters>
+  				<filter>src/main/resources/qa.properties</filter>
+  			</filters>
+  		</build>
+  	</profile>
+  	
+  	 <!-- prod environment profile -->
+  	<profile>
+  		<id>prod</id>
+  		<build>
+  			<finalName>${project.artifactId}-prod</finalName>
+  			<filters>
+  				<filter>src/main/resources/prod.properties</filter>
+  			</filters>
+  		</build>
+  	</profile>
+  	
+  </profiles>
+</project>

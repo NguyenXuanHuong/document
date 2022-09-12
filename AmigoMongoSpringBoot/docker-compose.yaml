@@ -22,4 +22,4 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongoDB_named
 volumes:
   mongo-data:
-    driver: local
+    driver: l

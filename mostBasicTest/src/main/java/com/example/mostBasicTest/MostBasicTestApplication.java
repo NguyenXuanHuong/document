@@ -1,16 +1,18 @@
-package com.example.AmigoMongoSpringBoot;
+package com.example.mostBasicTest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AmigoMongoSpringBootApplication {
+public class MostBasicTestApplication {
+
 
 
 	public static void main(String[] args) {
-		System.out.println("port =============== "+System.getenv("PORT"));
-		SpringApplication.run(AmigoMongoSpringBootApplication.class, args);
+
+
+		SpringApplication.run(MostBasicTestApplication.class, args);
 
 	}
 

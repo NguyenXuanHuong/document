@@ -18,6 +18,11 @@ public class TestController {
   @Autowired private TestInsertRepository testInsertRepository;
   @Autowired private MongoTemplate mongoTemplate;
 
+  @GetMapping("/test-docker")
+  String  testDocker() {
+    return "test docker";
+  }
+
   @GetMapping("/insert-test")
   void testInsert() {
     Student student = buildStudent();

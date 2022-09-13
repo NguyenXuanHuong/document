@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+  labels:
+    app: test-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test-pod
+  template:
+    metadata:
+      labels:
+        app: test-pod
+    spec:
+      containers:
+      - name: test-container
+        image: test
+        ports:
+        - containerPort: 9090
+        env:
+        - name: USERNAME_DB
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+        - name: SERVER_NAME
+          valueFrom: 
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_url
+        - name: PORT
+          valueFrom: 
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_port
+        - name: HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_host
+
+
+        

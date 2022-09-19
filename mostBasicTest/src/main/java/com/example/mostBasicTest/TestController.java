@@ -2,7 +2,10 @@ package com.example.mostBasicTest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class TestController {
@@ -12,7 +15,7 @@ public class TestController {
 
 
     @GetMapping("/test")
-    String testController (){
+    String testController (@RequestBody List<SingleDto> singleDtoList){
         return abc;
     }
 }

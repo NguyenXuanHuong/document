@@ -16,7 +16,8 @@ public class RatingsResource {
     }
 
     @RequestMapping("/user/{userId}")
-    public UserRating getUserRatings(@PathVariable("userId") String userId) {
+    public UserRating getUserRatings(@PathVariable("userId") String userId) throws InterruptedException {
+        Thread.sleep(30000);
         UserRating userRating = new UserRating();
         userRating.initData(userId);
         return userRating;

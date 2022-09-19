@@ -164,10 +164,11 @@ public class TestController {
 
   @GetMapping("/derived-query")
   void testDerivedQuery() {
-    derivedQueryRepository.findByderivedEntityName("d1");
-    derivedQueryRepository.findByderivedEntityName("d1");
-    derivedQueryRepository.findByStringAttr("a");
-    derivedQueryRepository.findByLongAttrLessThan(1l);
+//    derivedQueryRepository.findByderivedEntityName("d1");
+//    derivedQueryRepository.findByderivedEntityName("d1");
+//    derivedQueryRepository.findByStringAttr("a");
+//    derivedQueryRepository.findByLongAttrLessThan(1l);
+    derivedQueryRepository.findByIds(List.of(1L, 2L));
   }
 
   @GetMapping("/join")

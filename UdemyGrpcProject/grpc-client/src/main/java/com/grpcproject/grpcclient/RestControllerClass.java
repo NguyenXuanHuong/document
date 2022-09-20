@@ -12,7 +12,8 @@ public class RestControllerClass {
     GrpcClient grpcClient;
 
     @GetMapping("/test")
-    void test(){
+    void test() throws InterruptedException {
         grpcClient.getBalance(10);
+        grpcClient.withdraw(100);
     }
 }

@@ -29,4 +29,5 @@ service BankService{
   rpc withDraw(WithDrawMoneyRequest) returns(stream Money);
   rpc serverStream(WithdrawRequest) returns (stream Money);
   rpc clientStream(stream Money) returns (MoneyBack);
+  rpc biDiStream(stream Money) returns (stream MoneyBack);
 }

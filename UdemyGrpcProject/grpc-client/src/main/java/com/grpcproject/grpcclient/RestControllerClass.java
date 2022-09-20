@@ -13,8 +13,10 @@ public class RestControllerClass {
 
     @GetMapping("/test")
     void test() throws InterruptedException {
-        grpcClient.getBalance(10);
-        grpcClient.withdraw(100);
+//        grpcClient.getBalance(10);
+//        grpcClient.withdraw(100);
+//        grpcClient.clientStreaming();
+        grpcClient.biDiStream();
     }
 
 

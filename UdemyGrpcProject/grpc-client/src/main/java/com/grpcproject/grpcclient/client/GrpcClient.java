@@ -58,6 +58,7 @@ public class GrpcClient {
   public void clientStreaming(){
       List<Money> moneyList = new ArrayList<>();
       moneyList.add(Money.newBuilder().setAmount(100).build());
+      moneyList.add(Money.newBuilder().setAmount(200).build());
       StreamObserver<MoneyBack> backStreamObserver = new StreamObserver<MoneyBack>() {
           @Override
           public void onNext(MoneyBack moneyBack) {
@@ -73,8 +74,50 @@ public class GrpcClient {
           @Override
           public void onCompleted() {
 
+              System.out.println("completed");
+
           }
-      }
-      moneyList.stream().forEach(bankServiceStub.clientStream());
+      };
+
+      // create a stream to get Money from client and send that Money to server
+      StreamObserver<Money> streamObserver = bankServiceStub.clientStream(backStreamObserver);
+      moneyList.forEach(streamObserver::onNext);
+      streamObserver.onCompleted();
+
   }
+
+    public void biDiStream(){
+        List<Money> moneyList = new ArrayList<>();
+        moneyList.add(Money.newBuilder().setAmount(100).build());
+        moneyList.add(Money.newBuilder().setAmount(200).build());
+        moneyList.add(Money.newBuilder().setAmount(300).build());
+        StreamObserver<MoneyBack> howToHandleServerResponse = new StreamObserver<>() {
+            @Override
+            public void onNext(MoneyBack moneyBack) {
+                System.out.println("++++++++++++++++money back: "+moneyBack.getAmount());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+                System.out.println(throwable.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+
+                System.out.println("completed");
+
+            }
+        };
+
+        // create a stream to get Money from client and send that Money to server
+        StreamObserver<Money> streamObserver = bankServiceStub.biDiStream(howToHandleServerResponse);
+        moneyList.forEach(streamObserver::onNext);
+        streamObserver.onCompleted();
+
+    }
+
+
+
 }

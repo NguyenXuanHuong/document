@@ -1,4 +1,4 @@
-package com.grpcproject.grpcclient.configuration;
+package com.example.UdemyGrpc.configuration;
 
 import com.example.models.BankServiceGrpc;
 import io.grpc.ManagedChannel;

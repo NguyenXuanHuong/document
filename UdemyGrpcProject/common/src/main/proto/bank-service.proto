@@ -8,6 +8,9 @@ message BalanceCheckRequest{
 message Balance{
   int32 balance = 1 ;
 }
+message WithDrawMoneyRequest{
+  int32 amount = 1;
+}
 message WithdrawRequest{
   int32 amount = 1;
 }
@@ -22,6 +25,8 @@ message MoneyBack{
 
 service BankService{
   rpc getBalance(BalanceCheckRequest) returns (Balance);
+
+  rpc withDraw(WithDrawMoneyRequest) returns(stream Money);
   rpc serverStream(WithdrawRequest) returns (stream Money);
   rpc clientStream(stream Money) returns (MoneyBack);
 }

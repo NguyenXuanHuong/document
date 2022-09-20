@@ -9,16 +9,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ManagedChannelConfig {
     @Bean
-    ManagedChannel managedChannel(){
-    return ManagedChannelBuilder.forAddress("localhost", 6565).usePlaintext().build();
+    ManagedChannel managedChannel() {
+        return ManagedChannelBuilder.forAddress("localhost", 6565).usePlaintext().build();
     }
 
     @Bean
-    BankServiceGrpc.BankServiceBlockingStub bankServiceBlockingStub(){
+    BankServiceGrpc.BankServiceBlockingStub bankServiceBlockingStub() {
         return BankServiceGrpc.newBlockingStub(managedChannel());
     }
+
     @Bean
-    BankServiceGrpc.BankServiceStub bankServiceStub(){
+    BankServiceGrpc.BankServiceStub bankServiceStub() {
         return BankServiceGrpc.newStub(managedChannel());
     }
 }

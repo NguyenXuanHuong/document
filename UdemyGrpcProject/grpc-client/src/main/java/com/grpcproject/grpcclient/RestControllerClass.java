@@ -16,4 +16,6 @@ public class RestControllerClass {
         grpcClient.getBalance(10);
         grpcClient.withdraw(100);
     }
+
+
 }

@@ -1,7 +1,13 @@
 syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "com.example.UdemyGrpc";
+
+import "google/protobuf/empty.proto";
 message Person {
   string name = 1;
   int32 age = 2;
+}
+
+service PersonService{
+  rpc personService(google.protobuf.Empty) returns (google.protobuf.Empty);
 }

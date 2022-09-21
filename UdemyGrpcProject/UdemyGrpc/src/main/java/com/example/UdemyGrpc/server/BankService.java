@@ -56,6 +56,7 @@ public class BankService extends BankServiceGrpc.BankServiceImplBase {
     public StreamObserver<Money> clientStream(
             StreamObserver<MoneyBack> responseObserver) {
 
+        // how to treat request from client
         return new StreamObserver<Money>() {
             MoneyBack moneyBack;
             @Override

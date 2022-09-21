@@ -59,6 +59,7 @@ public class GrpcClient {
       List<Money> moneyList = new ArrayList<>();
       moneyList.add(Money.newBuilder().setAmount(100).build());
       moneyList.add(Money.newBuilder().setAmount(200).build());
+      // how to treat response from server
       StreamObserver<MoneyBack> backStreamObserver = new StreamObserver<MoneyBack>() {
           @Override
           public void onNext(MoneyBack moneyBack) {

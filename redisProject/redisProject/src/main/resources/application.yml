@@ -1,0 +1,10 @@
+redis:
+  host: ${REDIS_HOST:localhost}
+  port: ${REDIS_PORT:6379}
+  username: ${REDIS_USERNAME:"supperapp"}
+  password: ${REDIS_PASSWORD:"?HqfnL[W@s5CDfur"}
+  ssl_enabled: ${REDIS_SSL_ENABLED:false}
+  auth_enabled: ${REDIS_AUTH_ENABLED:false}
+
+server:
+  port: 9090

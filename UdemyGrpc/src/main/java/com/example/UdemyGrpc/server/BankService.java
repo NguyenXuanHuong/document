@@ -61,7 +61,37 @@ public class BankService extends BankServiceGrpc.BankServiceImplBase {
         responseObserver.onNext(moneyBack);
       }
     };
+    return streamObserver;
 
 
+  }
+
+  @Override
+  public StreamObserver<Money> biDiStream(
+          StreamObserver<MoneyBack> responseObserver) {
+    return new StreamObserver<Money>() {
+      @Override
+      public void onNext(Money money) {
+        System.out.println("hihi");
+      }
+
+      @Override
+      public void onError(Throwable throwable) {
+
+        System.out.println("dm vl");
+      }
+
+      @Override
+      public void onCompleted() {
+
+        List<MoneyBack> list =
+            List.of(
+                MoneyBack.newBuilder().setAmount(100).build(),
+                MoneyBack.newBuilder().setAmount(200).build());
+        list.forEach(responseObserver::onNext);
+        responseObserver.onCompleted();
+        System.out.println("++++++++++++++completed");
+      }
+    };
   }
 }

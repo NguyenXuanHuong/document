@@ -9,7 +9,13 @@ public class UnitTestService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public void testService(){
-        employeeRepository.getAllEmployee();
+    public String testService(){
+        try{
+            employeeRepository.getAllEmployee();
+            return "cde";
+        }catch (Exception e){
+            throw new RuntimeException("Abc");
+        }
+
     }
 }

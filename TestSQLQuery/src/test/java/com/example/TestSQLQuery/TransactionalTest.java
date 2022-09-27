@@ -2,27 +2,43 @@ package com.example.TestSQLQuery;
 
 import com.example.TestSQLQuery.Entity.Employee;
 import com.example.TestSQLQuery.Repository.EmployeeRepository;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import com.example.TestSQLQuery.Service.UnitTestService;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.*;
+import static org.junit.Assert.*;
+import java.util.List;
 
-import javax.persistence.EntityManager;
 
-
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@RunWith(MockitoJUnitRunner.class)
 public class TransactionalTest {
-
-    @Autowired
+    @Mock
     EmployeeRepository employeeRepository;
-    @Autowired
-    EntityManager em;
+
+    @InjectMocks
+    private UnitTestService unitTestService;
+
     @Test
-    void test(){
-//        Employee employee = em.find(Employee.class, 1l);
-//        Long iD = employee.getId();
-//        employeeRepository.getAllEmailNativeEm();
+    public void test(){
+    Mockito.when(employeeRepository.getAllEmployee()).thenThrow(new RuntimeException());
+    RuntimeException thrown = assertThrows(
+            RuntimeException.class,
+            ()->unitTestService.testService()
+    );
+    assertEquals("Abc", thrown.getMessage());
+
+
     }
+
+    @Test
+    public void test2(){
+        Mockito.when(employeeRepository.getAllEmployee()).thenReturn(List.of());
+        assertEquals("cde", unitTestService.testService());
+    }
+
+
+
+
 
 }

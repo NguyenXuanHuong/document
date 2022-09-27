@@ -1,13 +1,15 @@
 package com.example.TestSQLQuery.Entity;
 
-import com.example.TestSQLQuery.Entity.EmployeeOneToMany_;
 import com.example.TestSQLQuery.MappingObject.ResultSetDto;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
 @Entity
-@Data
+@Getter
+@Setter
 @NamedNativeQuery(
     name = "Employee.namedNativeQueryResultMapping", //entityName.methodName in Repo
     query = "select  * from employee",
@@ -51,10 +53,10 @@ public class Employee {
 
     private String another;
 
-  @ManyToOne(cascade = CascadeType.PERSIST) // SHOULD NOT USE ALL HERE
-  @JoinColumn(
-      name = "employee_one_to_many_id_name",
-      referencedColumnName = EmployeeOneToMany_.ID_FOR_REF
-      ) // which column in referenced table
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // SHOULD NOT USE ALL HERE
+//  @JoinColumn(
+//      name = "employee_one_to_many_id_name",
+//      referencedColumnName = EmployeeOneToMany_.ID_FOR_REF
+//      ) // which column in referenced table
   private EmployeeOneToMany employeeOneToMany;
 }

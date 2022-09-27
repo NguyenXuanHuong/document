@@ -1,16 +1,18 @@
 package com.example.TestSQLQuery.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeOneToMany implements Serializable { //if refered column is not PK, must implements Serializable
@@ -19,7 +21,7 @@ public class EmployeeOneToMany implements Serializable { //if refered column is 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generatorForEmployeeOneToMany")
     @SequenceGenerator(name = "generatorForEmployeeOneToMany", sequenceName = "hibernate_sequence")
     private Long id;
-    @OneToMany(mappedBy = "employeeOneToMany", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employeeOneToMany", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Employee> employeeList;
     private String name;
     private Long age;

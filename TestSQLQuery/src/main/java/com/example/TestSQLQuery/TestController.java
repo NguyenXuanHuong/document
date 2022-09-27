@@ -1,5 +1,6 @@
 package com.example.TestSQLQuery;
 
+import com.example.TestSQLQuery.Repository.impl.OneToManyRepository;
 import com.example.TestSQLQuery.TestCascade.CascadeTestRepository;
 import com.example.TestSQLQuery.Entity.Employee;
 import com.example.TestSQLQuery.Entity.EmployeeOneToMany;
@@ -19,10 +20,12 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -168,7 +171,7 @@ public class TestController {
 //    derivedQueryRepository.findByderivedEntityName("d1");
 //    derivedQueryRepository.findByStringAttr("a");
 //    derivedQueryRepository.findByLongAttrLessThan(1l);
-    derivedQueryRepository.findByIds(List.of(1L, 2L));
+//    derivedQueryRepository.findByIds(List.of(1L, 2L));
   }
 
   @GetMapping("/join")
@@ -193,5 +196,16 @@ public class TestController {
     EmployeeOneToMany employeeOneToMany = new EmployeeOneToMany();
     employee.setEmployeeOneToMany(employeeOneToMany);
     cascadeTestRepository.save(employee);
+  }
+
+  @Autowired
+  OneToManyRepository oneToManyRepository;
+
+  @GetMapping("/fetch-lazy-one-to-many")
+  void testOnetoManyLazyFetch(){
+    List<EmployeeOneToMany> list = oneToManyRepository.findAll();
+    EmployeeOneToMany employeeOneToMany = list.get(0);
+    List<Employee> list1 = employeeOneToMany.getEmployeeList();
+
   }
 }

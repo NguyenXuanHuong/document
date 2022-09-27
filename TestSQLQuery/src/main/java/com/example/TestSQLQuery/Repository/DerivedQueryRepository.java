@@ -17,7 +17,7 @@ public interface DerivedQueryRepository extends JpaRepository<DerivedEntity, Lon
   // DerivedEntity findByStringAttr(String str);
   // Equality
   List<DerivedEntity> findByStringAttr(String str); // => should use this
-  List<DerivedEntity> findByIds(List<Long> ids);
+//  List<DerivedEntity> findByIds(List<Long> ids);
   List<DerivedEntity> findByLongAttrIs(Long l);
 
   List<DerivedEntity> findByLongAttrEquals(Long l); // same as Is

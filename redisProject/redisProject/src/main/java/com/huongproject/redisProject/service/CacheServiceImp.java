@@ -29,4 +29,17 @@ public class CacheServiceImp{
         }
 
     }
+
+    public void delete(String cacheName, Object key) {
+        try {
+            if (cacheManager.getCache(cacheName) != null) {
+                cacheManager.getCache(cacheName).evictIfPresent(key);
+            }
+        } catch (Exception e) {
+            log.error("Have error when storing Data in redis: ", e.getMessage());
+        }
+
+    }
+
+
 }

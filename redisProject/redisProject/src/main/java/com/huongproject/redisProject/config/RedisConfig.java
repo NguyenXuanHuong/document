@@ -53,7 +53,7 @@ public class RedisConfig {
 //        return new RedisCacheManager();
 //    }
     @Bean
-    @Primary
+//    @Primary
     public LettuceConnectionFactory lettuceConnectionFactory() {
         var redisConfig = new RedisClusterConfiguration();
         redisConfig.addClusterNode(new RedisNode(host, port));
@@ -69,10 +69,18 @@ public class RedisConfig {
         return new LettuceConnectionFactory(redisConfig, clientConfig.build());
     }
 
-    @Bean
-    public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
-        return (builder) -> builder
-                .withCacheConfiguration(CACHE_TOKEN_DEVICE_LOGIN_BZB, this.cacheConfiguration());
+  @Bean
+  public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
+    return (builder) ->
+        builder
+            .withCacheConfiguration(CACHE_TOKEN_DEVICE_LOGIN_BZB, this.cacheConfiguration())
+            .withCacheConfiguration(
+                "no-expire",
+                RedisCacheConfiguration.defaultCacheConfig()
+                    .disableCachingNullValues()
+                    .serializeValuesWith(
+                        RedisSerializationContext.SerializationPair.fromSerializer(
+                            jsonRedisSerializer())));
     }
 
     @Bean

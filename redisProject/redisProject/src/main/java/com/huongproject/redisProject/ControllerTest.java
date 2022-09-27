@@ -29,8 +29,11 @@ public class ControllerTest {
     @GetMapping("/test-redis")
     public void test(){
         cacheServiceImp.addDataToRedis("abc", "test","testValue" );
-        testRepository.save(new TestEntity(1L, "ABC"));
-        repository.save(new TestEntity(3l, "huong"));
-        secondRedisRepository.save(new SecondEntity(4l, "Second redis"));
+        cacheServiceImp.addDataToRedis("no-expire", "no-expire-key","no-expire-value" );
+        cacheServiceImp.addDataToRedis("no-expire", "no-expire-key-1","no-expire-value-1" );
+        cacheServiceImp.delete("no-expire", "no-expire-key");
+//        testRepository.save(new TestEntity(1L, "ABC"));
+//        repository.save(new TestEntity(3l, "huong"));
+//        secondRedisRepository.save(new SecondEntity(4l, "Second redis"));
     }
 }

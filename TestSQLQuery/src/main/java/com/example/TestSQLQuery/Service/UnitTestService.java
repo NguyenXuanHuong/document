@@ -13,8 +13,7 @@ public class UnitTestService {
     @Autowired
     MockService2 mockService2;
 
-    @Autowired
-    MockService2 mockService3;
+
 
     public String testService(){
 

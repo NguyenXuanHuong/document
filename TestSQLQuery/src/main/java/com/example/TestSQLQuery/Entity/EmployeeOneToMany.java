@@ -18,8 +18,7 @@ import java.util.Set;
 public class EmployeeOneToMany implements Serializable { //if refered column is not PK, must implements Serializable
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generatorForEmployeeOneToMany")
-    @SequenceGenerator(name = "generatorForEmployeeOneToMany", sequenceName = "hibernate_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(mappedBy = "employeeOneToMany", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Employee> employeeList;

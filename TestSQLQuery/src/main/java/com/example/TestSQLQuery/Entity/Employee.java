@@ -45,18 +45,25 @@ import java.time.LocalDate;
 
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employeeSequenceForEmployee")
-    @SequenceGenerator(name = "employeeSequenceForEmployee", sequenceName = "hibernate_sequence") // if hibernate_sequence1 not exist => create new sequence
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employeeSequenceForEmployee")
+//    @SequenceGenerator(name = "employeeSequenceForEmployee", sequenceName = "hibernate_sequence") // if hibernate_sequence1 not exist => create new sequence
     private Long id;
     private String eName;
     private LocalDate DoB;
 
     private String another;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) // SHOULD NOT USE ALL HERE
+    private Integer intField;
+
+  @ManyToOne(cascade = CascadeType.PERSIST) // SHOULD NOT USE ALL HERE
 //  @JoinColumn(
 //      name = "employee_one_to_many_id_name",
 //      referencedColumnName = EmployeeOneToMany_.ID_FOR_REF
 //      ) // which column in referenced table
   private EmployeeOneToMany employeeOneToMany;
+
+  @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "one_to_one_id")
+    private EmployeeOneToOne oneToOne;
 }

@@ -1,5 +1,6 @@
 package com.example.TestSQLQuery;
 
+import com.example.TestSQLQuery.Entity.EmployeeOneToOne;
 import com.example.TestSQLQuery.Repository.impl.OneToManyRepository;
 import com.example.TestSQLQuery.TestCascade.CascadeTestRepository;
 import com.example.TestSQLQuery.Entity.Employee;
@@ -18,6 +19,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.OneToMany;
@@ -203,9 +205,24 @@ public class TestController {
 
   @GetMapping("/fetch-lazy-one-to-many")
   void testOnetoManyLazyFetch(){
-    List<EmployeeOneToMany> list = oneToManyRepository.findAll();
-    EmployeeOneToMany employeeOneToMany = list.get(0);
-    List<Employee> list1 = employeeOneToMany.getEmployeeList();
+
+    Employee employee = new Employee();
+    Employee saved = employeeRepository.save(employee);
+    Employee getSaved = employeeRepository.findById(saved.getId()).get();
+    getSaved.getIntField();
+
+
+  }
+
+  @GetMapping("/test_one_to_one")
+  void testOneToOne(){
+    Employee employee = new Employee();
+//    employee.setId(123l);
+    employee.setEName("name");
+    EmployeeOneToOne employeeOneToOne = new EmployeeOneToOne();
+    employeeOneToOne.setId("id");
+    employee.setOneToOne(employeeOneToOne);
+    employeeRepository.save(employee);
 
   }
 }
